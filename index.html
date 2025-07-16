@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sample Sign In Design</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <!-- Background -->
+    <div class="background-image"></div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer col-12">
+        ⚠️ This page is a non-functional UI demo created for portfolio purposes only. It does not collect 
+        real data and is not affiliated with any real brand.
+    </div>
+
+    <!-- Sign-in Form Container -->
+    <div class="sign-in-container col-12 flex-wrap justify-content-center align-items-center">
+        <div class="header1">
+            <div class="header">Sign In</div>
+        </div>
+
+        <!-- Username Field -->
+        <div class="container">
+            <input class="text" id="username" type="text" placeholder="Username" required />
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+            </svg>  
+        </div>
+
+        <!-- Password Field -->
+        <div class="container">
+            <input class="text" id="password" type="password" placeholder="Password" required />
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon" viewBox="0 0 16 16">
+                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1"/>
+            </svg>
+        </div>
+
+        <!-- Remember & Forgot Password -->
+        <div class="box-container">
+            <div class="checkbox">
+                <input type="checkbox" id="rememberMe" />
+                <label for="rememberMe">Remember me</label>
+            </div>
+            <div class="forgot-password">
+                <a class="text-href" href="#">Forgot Password?</a>
+            </div>
+        </div>
+
+        <!-- Sign-in Button -->
+        <div class="button-details">
+            <button class="button" onclick="handleSignIn()">Sign In</button>
+            <p id="errorMessage" class="error-message" style="display: none;">Invalid username or password!</p>
+        </div>
+
+        <!-- Register Option -->
+        <div class="box-container">
+            <div class="register-new">
+                <div>Don't have an account?</div>
+                <a class="text-href" href="#">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (localStorage.getItem("rememberMe") === "true") {
+                document.getElementById("username").value = localStorage.getItem("username") || "";
+                document.getElementById("password").value = localStorage.getItem("password") || "";
+                document.getElementById("rememberMe").checked = true;
+            }
+        });
+
+        function handleSignIn() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("errorMessage");
+            const rememberMe = document.getElementById("rememberMe").checked;
+
+            if (username === "sample" && password === "1234") {
+                alert("Sign in successful!\nWelcome to the sample page!");
+
+                // Store if checked
+                if (rememberMe) {
+                    localStorage.setItem("username", username);
+                    localStorage.setItem("password", password);
+                    localStorage.setItem("rememberMe", "true");
+                } else {
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("password");
+                    localStorage.removeItem("rememberMe");
+                }
+
+                window.location.href = "index.html"; // Change if redirecting elsewhere
+            } else {
+                errorMessage.style.display = "block";
+                errorMessage.textContent = "Invalid username or password!";
+            }
+        }
+    </script>
+</body>
+</html>
